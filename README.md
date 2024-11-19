@@ -1,5 +1,7 @@
 # Corsoft
 
+https://github.com/mechtool/corsoft.git
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
 В данном примере применена архитектура прогрессивных веб приложений (https://web.dev/explore/progressive-web-apps?hl=ru), что в значительной степени повышает отказоустойчивость приложения, используя активное кэширование ресурсов без участия разработчика (https://developer.mozilla.org/ru/docs/Web/API/Cache), и не имеет 
@@ -10,8 +12,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. 
 
 Однако, сервисный рабочий в данном режиме не 
-запустится, поскольку имеет ограничения на запуск в режиме разработки. Для запуска сервисного рабочего нужно загрузить глобально npm install http-server. В файле package.json прописана команда запуска этого сервера
-start-pwa, которая сначала собирает сборку, предварительно ее визуализирует (ssr angular prerender), а затем запускае сервер с прописанным путем к индексному файлу.
+запустится, поскольку имеет ограничения на запуск в режиме разработки. Для запуска сервисного рабочего нужно загрузить глобально `npm install http-server`. В файле package.json прописана команда запуска этого сервера
+`start-pwa`, которая сначала собирает сборку, предварительно ее визуализирует (ssr angular prerender), а затем запускае сервер с прописанным путем к индексному файлу.
 
 ## Build
 
