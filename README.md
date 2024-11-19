@@ -1,18 +1,20 @@
 # Corsoft
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+В данном примере применена архитектура прогрессивных веб приложений (https://web.dev/explore/progressive-web-apps?hl=ru), что в значительной степени повышает отказоустойчивость приложения, используя активное кэширование ресурсов без участия разработчика (https://developer.mozilla.org/ru/docs/Web/API/Cache), и не имеет 
+критических уязвимостей производительности микросервисов. Приложение может устанавливаться на мобильные устройства (), минуя разработку на языках программирования для мобильныых устройств https://web.dev/articles/pwas-in-app-stores.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. 
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Однако, сервисный рабочий в данном режиме не 
+запустится, поскольку имеет ограничения на запуск в режиме разработки. Для запуска сервисного рабочего нужно загрузить глобально npm install http-server. В файле package.json прописана команда запуска этого сервера
+start-pwa, которая сначала собирает сборку, предварительно ее визуализирует (ssr angular prerender), а затем запускае сервер с прописанным путем к индексному файлу.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run start-pwa` to build the project. The build artifacts will be stored in the `dist/corsoft` directory.
 
 ## Running unit tests
 

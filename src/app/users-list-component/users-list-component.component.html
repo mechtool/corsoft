@@ -1,0 +1,192 @@
+<p-toast />
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <p-button
+      severity="success"
+      label="Добавить"
+      icon="pi pi-plus"
+      class="mr-2"
+      (onClick)="addUser()" />
+    <p-button
+      severity="danger"
+      label="Удалить"
+      icon="pi pi-trash"
+      (onClick)="deleteSelected()"
+      [disabled]="!selectedUsers || selectedUsers.length !== 1"/>
+    <p-button
+      *ngIf="!rowEditMode"
+      severity="success"
+      label="Редактировать"
+      icon="pi pi-plus"
+      class="mr-2"
+      (onClick)="editSelected()"
+      [disabled]="!selectedUsers || selectedUsers.length !== 1"/>
+  </ng-template>
+  <ng-template pTemplate="right">
+    <p-toggleButton
+      [(ngModel)]="rowEditMode"
+      onLabel="On"
+      offLabel="Off" />
+  </ng-template>
+</p-toolbar>
+<p-table [value]="users"
+         [rows]="5"
+         [paginator]="true"
+         [loading]="false"
+         [editMode]="'row'"
+         [(selection)]="selectedUsers"
+         [selectionMode]="'single'"
+         [rowHover]="true"
+         dataKey="id"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem">
+        <p-tableHeaderCheckbox />
+      </th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Web Site</th>
+      <th>Phone</th>
+      <th *ngIf="rowEditMode">Edit</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="name"
+          placeholder="Поиск по имени"
+          ariaLabel="Filter Name" />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="username"
+          placeholder="Поиск по имени пользователя"
+          ariaLabel="Filter UserName" />
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th *ngIf="rowEditMode"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr [ngStyle]="{cursor: 'pointer'}" [pEditableRow]="user" (click)="openUserDetails(user)">
+      <td>
+        <p-tableCheckbox [value]="user" />
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText
+              type="text"
+              [(ngModel)]="user.name" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{user.name}}
+          </ng-template>
+        </p-cellEditor></td>
+      <td>        <p-cellEditor>
+        <ng-template pTemplate="input">
+          <input pInputText
+                 type="text"
+                 [(ngModel)]="user.username" />
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{user.username}}
+        </ng-template>
+      </p-cellEditor></td>
+      <td>
+        <p-cellEditor>
+        <ng-template pTemplate="input">
+          <input pInputText
+                 type="text"
+                 [(ngModel)]="user.email" />
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{user.email}}
+        </ng-template>
+      </p-cellEditor></td>
+      <td>
+        <p-cellEditor>
+        <ng-template pTemplate="input">
+          <input pInputText
+                 type="text"
+                 [(ngModel)]="user.website" />
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{user.website}}
+        </ng-template>
+      </p-cellEditor></td>
+      <td>
+        <p-cellEditor>
+        <ng-template pTemplate="input">
+          <input pInputText
+                 type="text"
+                 [(ngModel)]="user.phone" />
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{user.phone}}
+        </ng-template>
+      </p-cellEditor></td>
+      <td *ngIf="rowEditMode">
+        <div class="flex align-items-center justify-content-center gap-2">
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            type="button"
+            pInitEditableRow
+            icon="pi pi-pencil"
+            (click)="onRowEditInit(user)"
+            class="p-button-rounded p-button-text">
+          </button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pSaveEditableRow
+            icon="pi pi-check"
+            (click)="onRowEditSave(user)"
+            class="p-button-rounded p-button-text p-button-success mr-2">
+          </button>
+          <button
+            *ngIf="editing"
+            pButton pRipple
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times"
+            (click)="onRowEditCancel(user)"
+            class="p-button-rounded p-button-text p-button-danger">
+          </button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-dialog
+  [(visible)]="userAddDialog"
+  [style]="{ width: '450px' }"
+  header="Добавление пользователя"
+  [modal]="true">
+  <ng-template pTemplate="content"></ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Cancel"
+      icon="pi pi-times"
+      [text]="true"
+      (onClick)="hideDialog()" />
+    <p-button
+      label="Save"
+      icon="pi pi-check"
+      [text]="true"
+      (onClick)="save()" />
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" />
