@@ -1,1 +1,23 @@
+<p-toast />
+<p-toolbar  styleClass="mb-4 gap-2">
+  <div class="header">Отображение данных пользователя</div>
+</p-toolbar>
+<p-panel class="user-card" header="Личные данные" >
+  <div class="panel-content">
+    <div class="panel-item" *ngFor="let item of getUser()">
+      <div class="header">{{item[0]}} :</div>
+      <div class="data">{{item[1]}}</div>
+    </div>
+  </div>
+</p-panel>
+<p-panel class="user-card" header="Адрес" >
+  <div class="panel-content">
+
+  </div>
+</p-panel>
+<div class="footer">
+  <p-button label="Назад" severity="primary" routerLink="/users-list" />
+</div>
+
+
 

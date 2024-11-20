@@ -1,0 +1,22 @@
+:host{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.user-card{
+  flex: 1 1 0;
+}
+.footer{
+  margin: 24px
+}
+.panel-item{
+
+  & .header{
+    font-size: 16px;
+    font-weight: 600;
+  }
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

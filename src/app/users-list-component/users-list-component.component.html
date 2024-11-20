@@ -29,7 +29,7 @@
       offLabel="Off" />
   </ng-template>
 </p-toolbar>
-<p-table [value]="users"
+<p-table [value]="UsersService.users "
          [rows]="5"
          [paginator]="true"
          [loading]="false"
@@ -141,7 +141,7 @@
             type="button"
             pInitEditableRow
             icon="pi pi-pencil"
-            (click)="onRowEditInit(user)"
+            (click)="onRowEditInit($event, user)"
             class="p-button-rounded p-button-text">
           </button>
           <button
@@ -151,7 +151,7 @@
             type="button"
             pSaveEditableRow
             icon="pi pi-check"
-            (click)="onRowEditSave(user)"
+            (click)="onRowEditSave($event, user)"
             class="p-button-rounded p-button-text p-button-success mr-2">
           </button>
           <button
@@ -160,7 +160,7 @@
             type="button"
             pCancelEditableRow
             icon="pi pi-times"
-            (click)="onRowEditCancel(user)"
+            (click)="onRowEditCancel($event, user)"
             class="p-button-rounded p-button-text p-button-danger">
           </button>
         </div>
@@ -168,25 +168,5 @@
     </tr>
   </ng-template>
 </p-table>
-<p-dialog
-  [(visible)]="userAddDialog"
-  [style]="{ width: '450px' }"
-  header="Добавление пользователя"
-  [modal]="true">
-  <ng-template pTemplate="content"></ng-template>
 
-  <ng-template pTemplate="footer">
-    <p-button
-      label="Cancel"
-      icon="pi pi-times"
-      [text]="true"
-      (onClick)="hideDialog()" />
-    <p-button
-      label="Save"
-      icon="pi pi-check"
-      [text]="true"
-      (onClick)="save()" />
-  </ng-template>
-</p-dialog>
-
-<p-confirmDialog [style]="{ width: '450px' }" />
+<p-confirmDialog [style]="{ width: '450px' }"  />

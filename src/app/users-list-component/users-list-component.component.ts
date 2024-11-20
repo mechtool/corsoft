@@ -16,9 +16,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ConfirmationService, Message, MessageService} from 'primeng/api';
 import {MessageModule} from 'primeng/message';
 import {PaginatorModule} from 'primeng/paginator';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersService} from '../users.service';
-import {Messages, MessagesModule} from 'primeng/messages';
+import { MessagesModule} from 'primeng/messages';
 import {ChipsModule} from 'primeng/chips';
 import {Ripple} from 'primeng/ripple';
 import {ToggleButtonModule} from 'primeng/togglebutton';
@@ -59,49 +58,49 @@ export class UsersListComponentComponent {
   editing = false;
   rowEditMode = false;
 
-  public users: User[]  = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private usersService : UsersService,
+    public usersService : UsersService,
     private router: Router,
     private confirmationService: ConfirmationService) {
     (this.activatedRoute?.data as Observable<{usersData : User[]}>).pipe(
       take(1),
       tap(res => {
-      this.users = res.usersData;
+        UsersService.users = res.usersData;
     })).subscribe();
   }
 
   addUser() {
-    const id = this.createId();
-    this.router.navigate(['user-create', id], {state: {id}})
+    this.router.navigate(['user-create'])
   }
-  onRowEditInit(user: User) {
+  onRowEditInit(event: Event, user: User) {
+    event.stopImmediatePropagation();
     this.editing = true;
-
   }
 
-  onRowEditSave(user: User) {
+  onRowEditSave(event: Event, user: User) {
+    event.stopImmediatePropagation();
     this.editing = false
 
   }
 
-  onRowEditCancel(user: User) {
+  onRowEditCancel(event: Event, user: User) {
+    event.stopImmediatePropagation();
     this.editing = false
 
   }
 
   deleteSelected() {
     this.confirmationService.confirm({
-      message: 'Удалить выбранные элементы?',
+      message: 'Удалить выбранного пользователя?',
       header: 'Подтверждение.',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.selectedUsers?.length && this.usersService.delete(this.selectedUsers[0]).pipe(
           take(1),
           tap(res => {
-            this.users = this.users.filter(user => {
+            UsersService.users = UsersService.users.filter((user: User) => {
             return user.id !== this.selectedUsers?.[0].id
           });
           this.selectedUsers = null;
@@ -116,8 +115,8 @@ export class UsersListComponentComponent {
   }
 
   editSelected() {
-    const id = this.selectedUsers?.[0].id
-    this.router.navigate(['user-edit', id], {state: {id : id}})
+    const user = this.selectedUsers?.[0]
+    this.router.navigate(['user-edit', user?.id], {state: {user}})
   }
 
   hideDialog() {
@@ -129,40 +128,5 @@ export class UsersListComponentComponent {
     else event.stopImmediatePropagation();
   }
 
-  createId(): string {
-    let id = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-  }
-  updateSelected(){
-    this.usersService.update(this.selectedUsers?.[0] as User).pipe(
-      take(1),
-      tap(res => {
-      this.selectedUsers = null;
-      this.messageService.add({ severity: 'success', summary: 'Выполнено!', detail: 'Обновление пользователя', life: 2000 });
-    })).subscribe();
-  }
-
-  save() {
-    this.submitted = true;
-/*
-    if (this.user.name?.trim()) {
-      if (this.user.id) {
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-      } else {
-        this.user.id = this.createId();
-        this.products.push(this.product);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-      }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.user = {} as User;
-    }*/
-  }
-
+  protected readonly UsersService = UsersService;
 }
