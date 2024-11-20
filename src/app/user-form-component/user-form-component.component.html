@@ -1,2 +1,36 @@
+<p-toolbar  styleClass="mb-4 gap-2">
+  <div class="header">{{formHeader}}</div>
+</p-toolbar>
+<form class="form-group" [formGroup]="userForm" >
+  <div class="form-group-block">
+    <div class="left-group">
+      <p-floatLabel>
+        <input pInputText id="name" formControlName="name" />
+        <label for="name">Имя</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="username" formControlName="username" />
+        <label for="username">Имя пользователя</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputMask id="phone" mask="999-999999" formControlName="phone"  placeholder="999-99999" />
+        <label for="phone">Телефон</label>
+      </p-floatLabel>
+    </div>
+    <div class="right-group">
+      <p-floatLabel>
+        <input id="email" type="text" pInputText formControlName="email" placeholder="___@___.___" />
+        <label for="email">Email</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="website" formControlName="website" />
+        <label for="website">Web site</label>
+      </p-floatLabel>
+    </div>
+  </div>
+  <div class="form-button-block">
+    <p-button label="Отменить" severity="secondary" routerLink="/users-list" />
+    <p-button label="Сохранить" [disabled]="userForm.invalid" (onClick)="save()" />
+  </div>
+</form>
 
-ddd

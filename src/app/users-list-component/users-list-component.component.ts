@@ -124,8 +124,9 @@ export class UsersListComponentComponent {
     this.userAddDialog = false;
     this.submitted = false;
   }
-  openUserDetails(user: User){
-    this.router.navigate(['user-detail', user.id], {state: {user}});
+  openUserDetails(event : Event, user: User){
+    if((event?.currentTarget as HTMLElement)?.localName === 'tr') this.router.navigate(['user-detail', user.id], {state: {user}});
+    else event.stopImmediatePropagation();
   }
 
   createId(): string {

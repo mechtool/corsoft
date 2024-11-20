@@ -9,8 +9,8 @@ export const routes: Routes = [
   {path: 'users-list', component: UsersListComponentComponent, resolve: {usersData: UsersResolver} },
   {
     path: 'user-create/:id',
-    data: { title: 'Добавление пользователя' },
+    data: { header: 'Добавление пользователя' },
     loadComponent: () => import('./user-form-component/user-form-component.component').then(c => c.UserFormComponentComponent)},
-  {path: 'user-detail/:id',  component: UserDetailsComponentComponent},
-  {path: 'user-edit/:id', data: { title: 'Редактирование пользователя' },component: UserFormComponentComponent},
+  {path: 'user-detail/:id',  component: UserDetailsComponentComponent, data: { header: 'Просмотр данных пользователя' }},
+  {path: 'user-edit/:id', data: { header: 'Редактирование пользователя' },component: UserFormComponentComponent},
 ];

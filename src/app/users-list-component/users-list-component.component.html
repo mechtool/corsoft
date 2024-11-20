@@ -74,8 +74,8 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-user>
-    <tr [ngStyle]="{cursor: 'pointer'}" [pEditableRow]="user" (click)="openUserDetails(user)">
-      <td>
+    <tr [ngStyle]="{cursor: 'pointer'}" [pEditableRow]="user" (click)="openUserDetails($event, user)">
+      <td  (click)="openUserDetails($event, user)">
         <p-tableCheckbox [value]="user" />
       </td>
       <td>
